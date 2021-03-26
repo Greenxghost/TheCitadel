@@ -24,3 +24,18 @@ interface Locations
   name?: string,
   url?: string
 }
+
+interface Location {
+  dimension?: string,
+  id?: string,
+  name?: string,
+  residents?: any,
+  type?: string
+}
+
+interface Episode {
+  id?: string,
+  episode?: string,
+  name?: string,
+  characters?: any
+}

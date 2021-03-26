@@ -5,8 +5,6 @@ import { Component, h } from '@stencil/core';
 })
 export class TheCitadel {
 
-
-
   render() {
     return (
       <div>
@@ -20,7 +18,7 @@ export class TheCitadel {
           <stencil-router>
             <stencil-route-switch scrollTopOffset={0} >
               <stencil-route url="/" component="golden-plaza" exact={true} />
-              <stencil-route url="/character/:id" component="data-card" />
+              <stencil-route url="/:case/:id" component="data-card" />
             </stencil-route-switch>
           </stencil-router>
         </main>

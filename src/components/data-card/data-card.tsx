@@ -10,11 +10,11 @@ export class DataCard {
   @Prop() match: MatchResults;
 
   anarchy: boolean = true;
-  dataResults: Profile;
+  dataResults: any;
 
   componentWillLoad() {
     if (this.anarchy) {
-      return apiService.getSingleChar(this.match.params.id).then(data => {
+      return apiService.getSingleChar(this.match.params.id, this.match.params.case).then(data => {
         this.dataResults = data;
         console.log('data', data);
       }).catch(error => {
@@ -25,21 +25,53 @@ export class DataCard {
   }
 
   trackEpisodesFeatured(episodeList: any) {
-    console.log(episodeList.forEach((episode) => {
-      console.log('aaaaaaaaaaaa', episode);
-      return <a href={episode}>
+    let blockList = [];
+    episodeList.forEach((episode) => {
+      let block = <a href={this.treatUrl(episode)}>
         <div>{episode.substring(episode.lastIndexOf('/') + 1)}</div>
       </a>;
-    }));
+      blockList.push(block);
 
+    });
+    return blockList;
+  }
+
+  treatUrl(url) {
+    let split = url.split('/');
+    let destination = '/' + split[4] + '/' + split[5];
+    return destination;
   }
 
 
+  createInfo() {
+
+    switch (this.match.params.case) {
+      case 'location': {
+        return this.createInfoLoc(this.dataResults);
+      }
+      case 'episode': {
+        return this.createInfoEpi(this.dataResults);
+      }
+      case 'character': {
+        return this.createInfoCard(this.dataResults);
+      }
+      default: {
+        return this.createInfoCard(this.dataResults);
+      }
+    }
+
+
+  }
+
   createInfoCard(res) {
+
+    // let charLink: string = '/'+this.match.params.case+'/' + this.match.params.id;
+
+
     return <article class="profile-sheet">
 
       <img src={res.image}> </img>
-      <div class="">
+      <div class="character-sheet">
         <div class="liveInfo">
           <div class="profile-sheet-row">
             <div class="profile-sheet-row-title">Name:</div>
@@ -64,14 +96,13 @@ export class DataCard {
 
           <div class="profile-sheet-row">
             <div class="profile-sheet-row-title">Location:</div>
-            <a href={res.location.url}>
+            <a href={this.treatUrl(res.location.url)}>
               <div>{res.location.name}</div>
             </a>
           </div>
-
           <div class="profile-sheet-row">
             <div class="profile-sheet-row-title">Origin:</div>
-            <a href={res.origin.url}>
+            <a href={this.treatUrl(res.origin.url)}>
               <div>{res.origin.name}</div>
             </a>
           </div>
@@ -90,13 +121,111 @@ export class DataCard {
 
   }
 
+  connectCharacter(character: string) {
+    return apiService.getCharacterName(character);
+  }
+
+
+ trackCharacter(list) {
+    // let blockList: any[];
+    let characterName;
+    return list.forEach((character) => {
+      this.connectCharacter(character).then( data => {
+        characterName.push(data.name);
+        console.log('characterName', characterName);
+
+
+      });
+    });
+
+  }
+
+  createInfoEpi(res) {
+
+    // let charLink: string = '/'+this.match.params.case+'/' + this.match.params.id;
+
+
+    return <article class="profile-sheet">
+      <div class="episode-sheet">
+
+        <div class="profile-sheet-row">
+          <div class="profile-sheet-row-title">Name:</div>
+          <div>{res.name}</div>
+        </div>
+        <div class="profile-sheet-row">
+          <div class="profile-sheet-row-title">Episode:</div>
+          <div>{res.episode}</div>
+        </div>
+        <div class="profile-sheet-row">
+          <div class="profile-sheet-row-title">Characters:</div>
+          <div>
+            {this.trackCharacter(res.characters)}
+          </div>
+        </div>
+
+
+      </div>
+    </article>;
+
+  }
+
+
+  connectResident(resident: string) {
+    let residentInfo: string;
+    return apiService.getResidentName(resident).then(data => {
+      residentInfo = data.name;
+      return residentInfo;
+    }).catch(error => {
+      console.error(error);
+    });
+  }
+
+  trackResident(list) {
+    let blockList = [];
+    list.forEach((resident) => {
+      let block = <a href={this.treatUrl(resident)}>
+        <div>{this.connectResident(resident)}</div>
+      </a>;
+      blockList.push(block);
+
+    });
+    return blockList;
+  }
+
+  createInfoLoc(res) {
+
+    // let charLink: string = '/'+this.match.params.case+'/' + this.match.params.id;
+
+    return <article class="profile-sheet">
+
+      <img src={res.image}> </img>
+
+      <div class="location-sheet">
+
+        <div class="profile-sheet-row">
+          <div class="profile-sheet-row-title">Name:</div>
+          <div>{res.name}</div>
+        </div>
+        <div class="profile-sheet-row">
+          <div class="profile-sheet-row-title">Type:</div>
+          <div>{res.type}</div>
+        </div>
+        <div class="profile-sheet-row">
+          <div class="profile-sheet-row-title">Residents:</div>
+          <div class="hioh">{()=>{this.trackResident(res.residents)}}</div>
+        </div>
+
+      </div>
+    </article>;
+
+  }
 
   render() {
     return (
 
       <section class="data-profile">
         <div class="profile-sheet-container">
-          {this.createInfoCard(this.dataResults)}
+          {this.createInfo()}
         </div>
       </section>
 
