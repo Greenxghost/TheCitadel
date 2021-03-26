@@ -1,0 +1,30 @@
+.profile-card-terminal-info {
+  font-family: $font-terminal;
+  font-size: rem(20px);
+  color: $terminalGreen;
+
+  &.single-name{
+    font-family: $rick-font;
+    color: $blueLight-1;
+    text-shadow: 0 0 20px $terminalGreen;
+    padding-top: rem(10px);
+    padding-bottom: rem(10px);
+  }
+  .profile-card-terminal-location{
+
+    padding-top: rem(10px);
+    padding-bottom: rem(10px);
+
+    .single-voice{
+      font-size: rem(15px);
+    }
+  }
+
+}
+
+
+a:-webkit-any-link {
+  color: -webkit-link;
+  cursor: pointer;
+  text-decoration: none;
+}

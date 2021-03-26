@@ -1,0 +1,37 @@
+.profile-card-status-light {
+  width: rem(15px);
+  height: rem(15px);
+  border-radius: 50%;
+  display: inline-block;
+  border: lightgrey 1px;
+  background-color: grey;
+  margin: 5px;
+
+
+  &[data-status="ALV"]{
+    background-color: green;
+  }
+
+  &[data-status="DED"]{
+    background-color: red;
+
+  }
+
+  &[data-status="UNK"]{
+    background-color: yellow;
+  }
+
+}
+
+.profile-card-status-tag{
+  display: inline-block;
+  font-size: rem(15px);
+  font-family: $font-terminal;
+  color: $terminalGreen;
+}
+
+
+.profile-card-status{
+  display: flex;
+  align-items: center;
+}

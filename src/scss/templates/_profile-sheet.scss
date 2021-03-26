@@ -1,0 +1,12 @@
+.profile-sheet{
+  $imagename : "bureausheet.jpg";
+  background-image: image($imagename,$image-baseurl);
+  width: 90%;
+  margin: 0 auto;
+  margin-top: rem(50px);
+  min-height: rem(600px);
+}
+
+.profile-sheet-container{
+  padding: 10px;
+}

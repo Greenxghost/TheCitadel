@@ -1,0 +1,9 @@
+.data-profile{
+  $imagename : 'bureau.jpg';
+  background-image: image($imagename,$image-baseurl);
+  background-size: cover;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw;
+}

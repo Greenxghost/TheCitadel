@@ -1,0 +1,34 @@
+.card-list-item {
+  -webkit-align-self: auto;
+  -ms-flex-item-align: auto;
+  align-self: auto;
+  width: rem(300px);
+  margin: 10px;
+}
+
+
+.profile-card{
+  background: $fadingBlack;
+
+  &-status{
+
+  }
+  &-image-container{
+
+  }
+  &-image{
+    width: rem(145px);
+    border-radius: 50%;
+    margin: 0 auto;
+    display: block;
+    padding-top: rem(30px);
+  }
+
+
+}
+
+
+.profile-card-terminal{
+  text-align: center;
+  background-color: $blackMirror;
+}

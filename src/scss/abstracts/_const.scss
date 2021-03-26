@@ -1,0 +1,39 @@
+// for pallette title i used www.color-hex.com/color-palette/10375, ty man
+
+
+
+
+// font
+$font-name: 'get_schwifty.ttf';
+$font-baseurl: '../assets/';
+@font-face {
+  font-family: 'get-schwifty';
+  src: font($font-name, $font-baseurl) format('truetype');
+}
+
+$rick-font: "get-schwifty";
+
+$font-terminal: monospace;
+
+
+// getSchwifty palette blue
+
+$blueLight-1: #02afc5;
+$blueLight-2: #35c9dd;
+$blueLight-3: #87d1db;
+$blueLight-4: #a9f3fd;
+$blueLight-5: #4cb5c3;
+
+
+//remember the vat episode
+
+$portalGreen: #97ce4c;
+$terminalGreen: #4AF626;
+
+//blackterminal part
+$blackMirror: #2f2f2f;
+$fadingBlack: rgba(0, 0, 0, 0.5);
+
+//image const
+$image-baseurl: '../assets/';
+

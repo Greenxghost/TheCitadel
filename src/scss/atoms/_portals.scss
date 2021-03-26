@@ -1,0 +1,10 @@
+.profile-card-image-portal{
+  $imagename : 'portalview.png';
+  width: 100%;
+  height: rem(200px);
+  background-image: image($imagename,$image-baseurl);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  position:relative;
+}
