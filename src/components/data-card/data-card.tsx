@@ -11,6 +11,8 @@ export class DataCard {
 
   anarchy: boolean = true;
   dataResults: any;
+  characterName: any;
+  listBlock: any;
 
   componentWillLoad() {
     if (this.anarchy) {
@@ -126,16 +128,17 @@ export class DataCard {
   }
 
 
- trackCharacter(list) {
+  trackCharacter(list) {
     // let blockList: any[];
-    let characterName;
-    return list.forEach((character) => {
-      this.connectCharacter(character).then( data => {
-        characterName.push(data.name);
-        console.log('characterName', characterName);
 
 
-      });
+    list.map((character) => {
+      console.log(character);
+      this.connectCharacter(character)
+        .then((data) => {
+          this.listBlock.push(data.name);
+        });
+
     });
 
   }
@@ -143,6 +146,9 @@ export class DataCard {
   createInfoEpi(res) {
 
     // let charLink: string = '/'+this.match.params.case+'/' + this.match.params.id;
+
+    this.trackCharacter(res.characters);
+    console.log('block',this.listBlock);
 
 
     return <article class="profile-sheet">
@@ -159,7 +165,7 @@ export class DataCard {
         <div class="profile-sheet-row">
           <div class="profile-sheet-row-title">Characters:</div>
           <div>
-            {this.trackCharacter(res.characters)}
+            {this.listBlock}
           </div>
         </div>
 
@@ -212,7 +218,9 @@ export class DataCard {
         </div>
         <div class="profile-sheet-row">
           <div class="profile-sheet-row-title">Residents:</div>
-          <div class="hioh">{()=>{this.trackResident(res.residents)}}</div>
+          <div class="hioh">
+            {this.trackResident(res.residents)}
+          </div>
         </div>
 
       </div>
