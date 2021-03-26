@@ -1,10 +1,33 @@
-.profile-card-image-portal{
-  $imagename : 'portalview.png';
+.profile-card-image-portal {
+  $imagename: 'portalview.png';
   width: 100%;
   height: rem(200px);
-  background-image: image($imagename,$image-baseurl);
+  background-image: image($imagename, $image-baseurl);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  position:relative;
+  position: relative;
+}
+
+
+.profile-card:hover .profile-card-image-portal{
+  -webkit-animation: spin 4s linear infinite;
+  -moz-animation: spin 4s linear infinite;
+  animation: spin 4s linear infinite;
+  @-moz-keyframes spin {
+    100% {
+      -moz-transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes spin {
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+  @keyframes spin {
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
 }

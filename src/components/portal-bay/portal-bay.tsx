@@ -22,9 +22,6 @@ export class PortalBay {
 
   }
 
-  trackEpisodesFeatured() {
-
-  }
 
   printTerminalData(param: any) {
     if (param) {
@@ -48,10 +45,11 @@ export class PortalBay {
           </div>
           <div class="profile-card-image-container">
             <div class="profile-card-image-portal">
-              <a href={charLink}>
-                <img class="profile-card-image" id={imageId} src={res.image}> </img>
-              </a>
+
             </div>
+            <a href={charLink}>
+              <img class="profile-card-image" id={imageId} src={res.image}> </img>
+            </a>
           </div>
           <div class="profile-card-terminal">
             <div class="profile-card-terminal-info">
@@ -70,12 +68,6 @@ export class PortalBay {
 
               </div>
             </div>
-          </div>
-
-
-          <div class="chapterlist">
-
-            {this.trackEpisodesFeatured()}
           </div>
         </div>
 

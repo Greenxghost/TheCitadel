@@ -1,7 +1,12 @@
-.card-list-collector{
-  $imagename : "ricks-toilet.jpg";
-  background-image: image($imagename,$image-baseurl);
+.card-list-collector {
+  $imagename: "ricks-toilet.jpg";
+  background-image: image($imagename, $image-baseurl);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: right;
+}
+
+
+.profile-card-image-container {
+  position: relative
 }

@@ -26,7 +26,7 @@ export class MadnessModule {
     if (this.enabled === true) {
       return (
         <div class="text-area">
-          <p>Hi Darlin</p>
+          <i>W-What have you done Morty?!</i>
         </div>
       );
     }

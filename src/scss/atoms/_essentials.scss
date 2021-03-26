@@ -1,9 +1,18 @@
-.logo{
-  $imagename : "citadellogo.png";
-  background-image: image($imagename,$image-baseurl);
-  width: rem(40px);
-  height: rem(40px);
+.logo {
+  $imagename: "citadellogo.png";
+  background-image: image($imagename, $image-baseurl);
+  width: rem(50px);
+  height: rem(50px);
   background-size: contain;
   position: relative;
   background-repeat: no-repeat;
+}
+
+
+.hero {
+  width: 100%;
+  height: rem(409px);
+  $imagename: "thecitadelhub.png";
+  background-image: image($imagename, $image-baseurl);
+  position: relative
 }

@@ -7,28 +7,33 @@
 }
 
 
-.profile-card{
+.profile-card {
   background: $fadingBlack;
 
-  &-status{
+  &-status {
 
   }
-  &-image-container{
+
+  &-image-container {
 
   }
-  &-image{
+
+  &-image {
     width: rem(145px);
     border-radius: 50%;
     margin: 0 auto;
     display: block;
     padding-top: rem(30px);
+    top: 0px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
   }
-
 
 }
 
 
-.profile-card-terminal{
+.profile-card-terminal {
   text-align: center;
   background-color: $blackMirror;
 }
