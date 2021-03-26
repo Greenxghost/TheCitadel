@@ -11,7 +11,7 @@ export class TheCitadel {
     return (
       <div>
         <header>
-          <div></div>
+          <div class="logo"> </div>
         </header>
 
         <main>

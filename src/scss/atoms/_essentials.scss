@@ -1,0 +1,9 @@
+.logo{
+  $imagename : "citadellogo.png";
+  background-image: image($imagename,$image-baseurl);
+  width: rem(40px);
+  height: rem(40px);
+  background-size: contain;
+  position: relative;
+  background-repeat: no-repeat;
+}
