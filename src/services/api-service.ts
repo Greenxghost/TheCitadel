@@ -19,7 +19,6 @@ export class ApiService {
     this.json = await fetch(`https://rickandmortyapi.com/api/${parameter}/${identity}`).then(res => res.json()).then(json => {
       return json
     });
-    console.log('navemadre', this.json);
     return this.json;
   }
 
@@ -28,7 +27,7 @@ export class ApiService {
 
   async getEpisodeName(urlList: any[]) {
     if(urlList){
-  let gringo = await Promise.all(urlList
+  let response = await Promise.all(urlList
       .map((url) => {
        return fetch(url)
           .then(res => res.json())
@@ -36,41 +35,36 @@ export class ApiService {
             console.log(charcharRes.name)
             return charcharRes.name})
       }));
-    console.log('grrngo',gringo)
-    return gringo;}
+    return response;}
   }
 
   async getResidentName(urlList: any[]) {
     if(urlList){
-  let gringo = await Promise.all(urlList
+  let response = await Promise.all(urlList
       .map((url) => {
        return fetch(url)
           .then(res => res.json())
           .then(charcharRes => {
-            console.log(charcharRes.name)
             return charcharRes.name})
       }));
-    console.log('grrngo',gringo)
-    return gringo;}
+    return response;}
   }
 
   async getCharacterName(urlList: any[]) {
     if(urlList){
-  let gringo = await Promise.all(urlList
+  let response = await Promise.all(urlList
       .map((url) => {
        return fetch(url)
           .then(res => res.json())
           .then(charcharRes => {
-            console.log(charcharRes.name)
             return charcharRes.name})
       }));
-    return gringo;}
+    return response;}
   }
 
 
 
   async getMoreInfo(parameter, urllist){
-console.log('here',urllist);
     switch (parameter) {
       case 'location': {
         return await this.getResidentName(urllist.residents);
