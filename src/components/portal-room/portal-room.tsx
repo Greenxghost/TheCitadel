@@ -25,7 +25,7 @@ export class PortalRoom {
           <div class="navigation-bar-search">
             <input type='text'> </input>
           </div>
-          <div class="navigation-bar-arrow-right" onClick={ () => this.navigateSearch('next')}> </div>
+          <div class="navigation-bar-arrow-right" onClick={() => this.navigateSearch('next')}> </div>
         </div>
       </div>
     );

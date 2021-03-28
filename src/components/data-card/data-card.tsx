@@ -103,7 +103,6 @@ export class DataCard {
   }
   createInfoCard(res) {
     // let charLink: string = '/'+this.match.params.case+'/' + this.match.params.id;
-    console.log('res111111', res);
 
     return <article class="profile-sheet">
       <img src={res.image}> </img>
@@ -111,19 +110,19 @@ export class DataCard {
         <div class="liveInfo">
           <div class="profile-sheet-row">
             <div class="profile-sheet-row-title">Name:</div>
-            <div>{res.name}</div>
+            <div class="profile-sheet-row-result">{res.name}</div>
           </div>
           <div class="profile-sheet-row">
             <div class="profile-sheet-row-title">Gender:</div>
-            <div>{res.gender}</div>
+            <div class="profile-sheet-row-result">{res.gender}</div>
           </div>
           <div class="profile-sheet-row">
             <div class="profile-sheet-row-title">Species:</div>
-            <div>{res.species}</div>
+            <div class="profile-sheet-row-result">{res.species}</div>
           </div>
           <div class="profile-sheet-row">
             <div class="profile-sheet-row-title">Status:</div>
-            <div>{res.status}</div>
+            <div class="profile-sheet-row-result">{res.status}</div>
           </div>
 
         </div>
@@ -132,13 +131,13 @@ export class DataCard {
 
           <div class="profile-sheet-row">
             <div class="profile-sheet-row-title">Location:</div>
-            <a href={this.treatUrl(res.location.url)}>
+            <a class="profile-sheet-row-result" href={this.treatUrl(res.location.url)}>
               <div>{res.location.name}</div>
             </a>
           </div>
           <div class="profile-sheet-row">
             <div class="profile-sheet-row-title">Origin:</div>
-            <a href={this.treatUrl(res.origin.url)}>
+            <a class="profile-sheet-row-result" href={this.treatUrl(res.origin.url)}>
               <div>{res.origin.name}</div>
             </a>
           </div>
@@ -147,8 +146,10 @@ export class DataCard {
 
 
         <div class="chapterlist">
-          <div class="chapterlist-title">
-            {res.episode.length} sightings already:
+          <div class="profile-sheet-row">
+            <div class="profile-sheet-row-title">{res.episode.length} sightings already:</div>
+          </div>
+          <div class="chapterlist-title scrollbox">
             {this.moreinfo ? this.trackEpisodesFeatured(res.episode, this.moreinfo) : ''}
           </div>
         </div>
@@ -184,15 +185,15 @@ export class DataCard {
 
         <div class="profile-sheet-row">
           <div class="profile-sheet-row-title">Name:</div>
-          <div>{res.name}</div>
+          <div class="profile-sheet-row-result">{res.name}</div>
         </div>
         <div class="profile-sheet-row">
           <div class="profile-sheet-row-title">Episode:</div>
-          <div>{res.episode}</div>
+          <div class="profile-sheet-row-result">{res.episode}</div>
         </div>
         <div class="profile-sheet-row">
           <div class="profile-sheet-row-title">Featured by {res.characters.length} characters:</div>
-          <div>
+          <div class="scrollbox">
 
             {this.moreinfo ? this.trackCharactersFeatured(res.characters, this.moreinfo) : ''}
           </div>
@@ -231,15 +232,15 @@ export class DataCard {
 
         <div class="profile-sheet-row">
           <div class="profile-sheet-row-title">Name:</div>
-          <div>{res.name}</div>
+          <div class="profile-sheet-row-result">{res.name}</div>
         </div>
         <div class="profile-sheet-row">
           <div class="profile-sheet-row-title">Type:</div>
-          <div>{res.type}</div>
+          <div class="profile-sheet-row-result">{res.type}</div>
         </div>
         <div class="profile-sheet-row">
           <div class="profile-sheet-row-title">Hosted {res.residents.length} residents:</div>
-          <div>
+          <div class="scrollbox">
 
             {this.moreinfo ? this.trackCharactersFeatured(res.residents, this.moreinfo) : ''}
           </div>

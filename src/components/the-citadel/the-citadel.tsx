@@ -13,8 +13,6 @@ export class TheCitadel {
         </header>
 
         <main>
-          <madness-module enabled={true} >
-          </madness-module>
           <stencil-router>
             <stencil-route-switch scrollTopOffset={0} >
               <stencil-route url="/" component="golden-plaza" exact={true} />
@@ -22,6 +20,8 @@ export class TheCitadel {
             </stencil-route-switch>
           </stencil-router>
         </main>
+        <madness-module enabled={true} >
+        </madness-module>
       </div>
     );
   }

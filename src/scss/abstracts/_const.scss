@@ -8,6 +8,14 @@ $font-baseurl: '../assets/';
   font-family: 'get-schwifty';
   src: font($font-name, $font-baseurl) format('truetype');
 }
+$font-name: 'typewriter.ttf';
+$font-baseurl: '../assets/';
+@font-face {
+  font-family: 'typewriter';
+  src: font($font-name, $font-baseurl) format('truetype');
+}
+
+$font-typewriter: "typewriter";
 
 $rick-font: "get-schwifty";
 
