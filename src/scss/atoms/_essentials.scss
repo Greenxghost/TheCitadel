@@ -16,3 +16,34 @@
   background-image: image($imagename, $image-baseurl);
   position: relative
 }
+
+
+.navigation-bar-arrow {
+
+
+  &-left {
+    $imagename: "greenarrow.png";
+    background-image: image($imagename, $image-baseurl);
+    transform: rotate(
+        -90deg
+    );
+    background-size: cover;
+    width: 30px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+
+  }
+
+  &-right {
+    $imagename: "greenarrow.png";
+    background-image: image($imagename, $image-baseurl);
+    transform: rotate(
+        90deg
+    );
+    background-size: contain;
+    width: 30px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+
+  }
+}

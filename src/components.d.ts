@@ -82,6 +82,7 @@ declare namespace LocalJSX {
         "anarchy"?: boolean;
     }
     interface PortalRoom {
+        "onNavigate"?: (event: CustomEvent<any>) => void;
     }
     interface TheCitadel {
     }

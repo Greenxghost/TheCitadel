@@ -5,12 +5,18 @@ export class ApiService {
 
 
 
-  async getCharacters(page ?: number) {
-    this.json = await fetch(`https://rickandmortyapi.com/api/character${page ? '/' + page : ''}`).then(res => res.json()).then(json => {
+  async getCharacters(page ?: any) {
+    if(!page)
+    this.json = await fetch(`https://rickandmortyapi.com/api/character`).then(res => res.json()).then(json => {
       return json;
     });
+    else
+      this.json = await fetch(`${page}`).then(res => res.json()).then(json => {
+        return json;
+      });
     return this.json;
   }
+
 
 
   async getSingleChar(identity: string, parameter: string) {
@@ -21,9 +27,6 @@ export class ApiService {
     });
     return this.json;
   }
-
-
-
 
   async getEpisodeName(urlList: any[]) {
     if(urlList){
@@ -61,8 +64,6 @@ export class ApiService {
       }));
     return response;}
   }
-
-
 
   async getMoreInfo(parameter, urllist){
     switch (parameter) {

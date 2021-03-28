@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, Listen, Prop, State } from '@stencil/core';
 import { apiService } from '../../services/api-service';
 
 // import { apiService } from '../../services/api-service';
@@ -8,26 +8,34 @@ import { apiService } from '../../services/api-service';
 export class PortalBay {
 
   @Prop() anarchy: boolean;
-  dataResults: any;
+  @State() dataResults: any;
+  @State() dataNavigate: any;
 
-  componentWillLoad() {
-    console.log(this.anarchy ? 'Anarchy reign' : 'Evil Morty Kingdom');
-    if (this.anarchy) {
-      return apiService.getCharacters().then(data => {
-        this.dataResults = data.results;
-      }).catch(error => {
-        console.error(error);
-      });
-    }
-
+  @Listen('navigate', { target: 'window' })
+  todoCompletedHandler(event: CustomEvent) {
+    console.log('aeeeej', this.dataNavigate)
+    if (event.detail == 'next')
+      this.connectDB(this.dataNavigate.next);
+    else
+      if(this.dataNavigate.prev)
+      this.connectDB(this.dataNavigate.prev);
   }
 
 
-  printTerminalData(param: any) {
-    if (param) {
-      return <div>
-      </div>;
+  connectDB(orientation?: string) {
+    if (this.anarchy) {
+        apiService.getCharacters(orientation ? orientation : '').then(data => {
+          this.dataNavigate = data.info;
+          this.dataResults = data.results;
+        }).catch(error => {
+          console.error(error);
+        });
     }
+  }
+
+  componentWillLoad() {
+    console.log(this.anarchy ? 'Anarchy reign' : 'Evil Morty Kingdom');
+    this.connectDB();
   }
 
   createInfoCard() {
@@ -77,16 +85,17 @@ export class PortalBay {
 
 
   render() {
-    return (
+    if (this.dataResults)
+      return (
 
-      <section class="card-list-collector">
-        <div class="card-list-container">
-          {this.createInfoCard()}
-        </div>
-      </section>
+        <section class="card-list-collector">
+          <div class="card-list-container">
+            {this.createInfoCard()}
+          </div>
+        </section>
 
 
-    );
+      );
 
   }
 }
