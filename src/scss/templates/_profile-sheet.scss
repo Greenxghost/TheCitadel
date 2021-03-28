@@ -1,8 +1,8 @@
-$imageWidth : rem(150px);
-$imageHeight : rem(150px);
-.profile-sheet{
-  $imagename : "bureausheet.jpg";
-  background-image: image($imagename,$image-baseurl);
+$imageWidth: rem(150px);
+$imageHeight: rem(150px);
+.profile-sheet {
+  $imagename: "bureausheet.jpg";
+  background-image: image($imagename, $image-baseurl);
   width: 90%;
   margin: 0 auto;
   margin-top: rem(50px);
@@ -10,18 +10,18 @@ $imageHeight : rem(150px);
   display: flex;
   flex-wrap: wrap;
 
-  img{
+  img {
     width: $imageWidth;
     height: $imageHeight;
   }
 }
 
-.profile-sheet-container{
+.profile-sheet-container {
   padding: 10px;
 }
 
 
-.profile-sheet-row{
+.profile-sheet-row {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
@@ -53,6 +53,14 @@ $imageHeight : rem(150px);
   .profile-sheet-row-result {
     width: 50%;
     text-align: center;
+
+    a {
+      color: black;
+
+      &:hover {
+        color: darkred;
+      }
+    }
   }
 }
 

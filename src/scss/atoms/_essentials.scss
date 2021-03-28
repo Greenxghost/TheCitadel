@@ -52,6 +52,15 @@
 .scrollbox{
   height: 100px;
   overflow: auto;
+  font-family: "typewriter";
+  font-size: 1.025rem;
+  text-align: center;
+  a{
+    color: black;
+    &:hover{
+      color: darkred;
+    }
+  }
 }
 
 
