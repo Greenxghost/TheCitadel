@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, Prop, State, Watch } from '@stencil/core';
 import { apiService } from '../../services/api-service';
 import { MatchResults } from '@stencil/router';
 
@@ -10,33 +10,76 @@ export class DataCard {
   @Prop() match: MatchResults;
 
   anarchy: boolean = true;
-  dataResults: any;
+  @State() dataResults: any;
+  @State() moreinfo: any;
   characterName: any;
   listBlock: any;
+  @State() sheet: any;
+
+
+  @Watch('dataResults')
+  watchHandler(dataResults) {
+    this.dataResults = dataResults;
+  }
+
 
   componentWillLoad() {
     if (this.anarchy) {
-      return apiService.getSingleChar(this.match.params.id, this.match.params.case).then(data => {
-        this.dataResults = data;
-        console.log('data', data);
-      }).catch(error => {
-        console.error(error);
-      });
+      apiService.getSingleChar(this.match.params.id, this.match.params.case)
+        .then(data => {
+          this.dataResults = data;
+          console.log(this.dataResults);
+          if (this.dataResults) {
+            apiService.getMoreInfo(this.match.params.case, this.dataResults)
+              .then(
+                (data) => {
+                  console.log('finito', data);
+                  this.moreinfo = data;
+                  console.log('this.moreinfo', this.moreinfo);
+                },
+              );
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+
+
+    }
+  }
+
+  createInfo() {
+    console.log('case:', this.match.params.case);
+
+    switch (this.match.params.case) {
+      case 'location': {
+        console.log('dataresult', this.dataResults);
+
+        this.sheet = this.createInfoLoc(this.dataResults);
+        break;
+
+      }
+      case 'episode': {
+        console.log('dataresult', this.dataResults);
+
+        this.sheet = this.createInfoEpi(this.dataResults);
+        break;
+      }
+      case 'character': {
+        console.log('dataresult', this.dataResults);
+
+        this.sheet = this.createInfoCard(this.dataResults);
+        break;
+      }
+      default: {
+        return;
+      }
     }
 
+
   }
 
-  trackEpisodesFeatured(episodeList: any) {
-    let blockList = [];
-    episodeList.forEach((episode) => {
-      let block = <a href={this.treatUrl(episode)}>
-        <div>{episode.substring(episode.lastIndexOf('/') + 1)}</div>
-      </a>;
-      blockList.push(block);
 
-    });
-    return blockList;
-  }
 
   treatUrl(url) {
     let split = url.split('/');
@@ -44,34 +87,25 @@ export class DataCard {
     return destination;
   }
 
+  trackEpisodesFeatured(episodeList: any, episodeName: any) {
+    let blockList = [];
+    console.log('episodeList', episodeList);
+    console.log('moar?', episodeName);
 
-  createInfo() {
+    episodeList.forEach((episode, index) => {
+      let block = <a href={this.treatUrl(episode)}>
+        <div>{episodeName[index]}</div>
+      </a>;
+      blockList.push(block);
 
-    switch (this.match.params.case) {
-      case 'location': {
-        return this.createInfoLoc(this.dataResults);
-      }
-      case 'episode': {
-        return this.createInfoEpi(this.dataResults);
-      }
-      case 'character': {
-        return this.createInfoCard(this.dataResults);
-      }
-      default: {
-        return this.createInfoCard(this.dataResults);
-      }
-    }
-
-
+    });
+    return blockList;
   }
-
   createInfoCard(res) {
-
     // let charLink: string = '/'+this.match.params.case+'/' + this.match.params.id;
-
+    console.log('res111111', res);
 
     return <article class="profile-sheet">
-
       <img src={res.image}> </img>
       <div class="character-sheet">
         <div class="liveInfo">
@@ -115,40 +149,34 @@ export class DataCard {
         <div class="chapterlist">
           <div class="chapterlist-title">
             {res.episode.length} sightings already:
+            {this.moreinfo ? this.trackEpisodesFeatured(res.episode, this.moreinfo) : ''}
           </div>
-          {this.trackEpisodesFeatured(res.episode)}
         </div>
       </div>
     </article>;
 
   }
 
-  connectCharacter(character: string) {
-    return apiService.getCharacterName(character);
-  }
 
+  trackCharactersFeatured(characterList: any, characterName: any) {
+    let blockList = [];
+    console.log('episodeList', characterList);
+    console.log('moar?', characterName);
 
-  trackCharacter(list) {
-    // let blockList: any[];
-
-
-    list.map((character) => {
-      console.log(character);
-      this.connectCharacter(character)
-        .then((data) => {
-          this.listBlock.push(data.name);
-        });
+    characterList.forEach((pg, index) => {
+      let block = <a href={this.treatUrl(pg)}>
+        <div>{characterName[index]}</div>
+      </a>;
+      blockList.push(block);
 
     });
-
+    return blockList;
   }
-
   createInfoEpi(res) {
 
     // let charLink: string = '/'+this.match.params.case+'/' + this.match.params.id;
 
-    this.trackCharacter(res.characters);
-    console.log('block',this.listBlock);
+    console.log('block', res);
 
 
     return <article class="profile-sheet">
@@ -163,9 +191,10 @@ export class DataCard {
           <div>{res.episode}</div>
         </div>
         <div class="profile-sheet-row">
-          <div class="profile-sheet-row-title">Characters:</div>
+          <div class="profile-sheet-row-title">Featured by {res.characters.length} characters:</div>
           <div>
-            {this.listBlock}
+
+            {this.moreinfo ? this.trackCharactersFeatured(res.characters, this.moreinfo) : ''}
           </div>
         </div>
 
@@ -176,28 +205,20 @@ export class DataCard {
   }
 
 
-  connectResident(resident: string) {
-    let residentInfo: string;
-    return apiService.getResidentName(resident).then(data => {
-      residentInfo = data.name;
-      return residentInfo;
-    }).catch(error => {
-      console.error(error);
-    });
-  }
-
-  trackResident(list) {
+  trackResidentsHosted(residentList: any, residentName: any) {
     let blockList = [];
-    list.forEach((resident) => {
-      let block = <a href={this.treatUrl(resident)}>
-        <div>{this.connectResident(resident)}</div>
+    console.log('episodeList', residentList);
+    console.log('moar?', residentName);
+
+    residentList.forEach((pg, index) => {
+      let block = <a href={this.treatUrl(pg)}>
+        <div>{residentName[index]}</div>
       </a>;
       blockList.push(block);
 
     });
     return blockList;
   }
-
   createInfoLoc(res) {
 
     // let charLink: string = '/'+this.match.params.case+'/' + this.match.params.id;
@@ -217,9 +238,10 @@ export class DataCard {
           <div>{res.type}</div>
         </div>
         <div class="profile-sheet-row">
-          <div class="profile-sheet-row-title">Residents:</div>
-          <div class="hioh">
-            {this.trackResident(res.residents)}
+          <div class="profile-sheet-row-title">Hosted {res.residents.length} residents:</div>
+          <div>
+
+            {this.moreinfo ? this.trackCharactersFeatured(res.residents, this.moreinfo) : ''}
           </div>
         </div>
 
@@ -229,11 +251,14 @@ export class DataCard {
   }
 
   render() {
+    console.log(this.sheet);
+    if (this.dataResults)
+      this.createInfo();
     return (
-
       <section class="data-profile">
         <div class="profile-sheet-container">
-          {this.createInfo()}
+          {this.sheet ? this.sheet : ''}
+
         </div>
       </section>
 
@@ -241,4 +266,8 @@ export class DataCard {
     );
 
   }
+
+
 }
+
+

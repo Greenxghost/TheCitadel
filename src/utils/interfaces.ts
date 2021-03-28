@@ -29,7 +29,7 @@ interface Location {
   dimension?: string,
   id?: string,
   name?: string,
-  residents?: any,
+  residents?: any[],
   type?: string
 }
 
@@ -37,5 +37,5 @@ interface Episode {
   id?: string,
   episode?: string,
   name?: string,
-  characters?: any
+  characters?: any[]
 }
